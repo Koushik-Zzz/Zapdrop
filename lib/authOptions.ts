@@ -36,17 +36,6 @@ export const authOptions: AuthOptions = {
             }
             return token;
         },
-        redirect: async ({ url, baseUrl }) => {
-            // Redirect to /upload after successful login
-            if (url === baseUrl || url === `${baseUrl}/`) {
-                return `${baseUrl}/upload`;
-            }
-            // Allow callback URLs on the same origin
-            if (url.startsWith(baseUrl)) {
-                return url;
-            }
-            return `${baseUrl}/upload`;
-        },
     },
     session: {
         strategy: 'jwt',

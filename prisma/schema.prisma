@@ -14,7 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Model for users
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -26,12 +25,10 @@ model User {
   
   accounts Account[]
   sessions Session[]
-  files    File[]
 
   @@map("users")
 }
 
-// Model for OAuth accounts
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -61,29 +58,4 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
-}
-
-model File {
-  id              String   @id @default(cuid())
-  
-  // File metadata
-  originalName    String
-  fileSize        Int      // in bytes
-  mimeType        String
- 
-  // Sharing settings
-  uniqueId        String   @unique // unique identifier for the file
-  key             String   @unique // public share identifier
-  expiresAt       DateTime
-  isExpired       Boolean  @default(false)
-  
-  // Metadata
-  uploadedAt      DateTime @default(now())
-  lastAccessedAt  DateTime?
-  
-  // Relations
-  uploadedById    String   // required user ID
-  uploadedBy      User     @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
-  
-  @@map("files")
 }

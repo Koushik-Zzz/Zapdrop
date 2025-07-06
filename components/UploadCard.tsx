@@ -2,14 +2,11 @@
 import React, { useCallback, useState } from 'react'
 import { Card, CardContent } from './ui/card'
 import { AlertCircle, Clock, File, Loader2, Upload, X } from 'lucide-react'
-import { cn, formatFileSize } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { Progress } from './ui/progress'
 import AnimatedButton from './AnimatedButton'
-import axios from 'axios'
-import {  useRouter } from 'next/navigation'
-import { toast } from 'sonner'
 
 const EXPIRY_OPTIONS = [
 	{ label: '2 Hours', value: '2h', hours: 2 },
@@ -24,7 +21,6 @@ const UploadCard = () => {
 	const [isUploading, setIsUploading] = useState(false)
 	const [selectedExpiry, setSelectedExpiry] = useState(EXPIRY_OPTIONS[0])
 	const [uploadProgress, setUploadProgress] = useState(0)
-	const router = useRouter()
 
 	const handleDragOver = useCallback((e: React.DragEvent) => {
 		e.preventDefault()
@@ -41,79 +37,30 @@ const UploadCard = () => {
 			e.preventDefault()
 			setIsDragOver(false)
 			setError(null)
-			const files = e.dataTransfer.files
-			if (files.length > 0) {
-				setSelectedFile(files[0])
-			}
+			// TODO: Handle file drop
+			console.log('TODO: handle file drop')
 		},
 		[]
 	)
 
 	const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const files = e.target.files
-
-
-		if (files && files.length > 0) {
-			setSelectedFile(files[0])
-		}
+		// TODO: Handle file selection
+		console.log('TODO: handle file selection')
 	}
-	const handleUpload = async () => {
-		if (!selectedFile || !selectedExpiry) return
 
-		const { type, size, name } = selectedFile;
+	const handleUpload = () => {
+		// TODO: Handle file upload
+		console.log('TODO: handle file upload')
+	}
 
-		try {
-			setIsUploading(true)
-			setUploadProgress(0)
-
-			const response = await axios.post('/api/upload', {
-				file: {
-					name,
-					size,
-					type,
-				},
-				expiry: selectedExpiry
-			})
-			
-			const { signedUrl, key } = response.data;
-
-			const uploadResponse = await axios.put(signedUrl, selectedFile, {
-				headers: {
-					'Content-Type': selectedFile.type,
-				},
-				onUploadProgress: (progressEvent) => {
-					const progress = Math.round(progressEvent.loaded * 100 / (progressEvent.total || 1))
-					setUploadProgress(progress)
-				}
-			})
-			if (uploadResponse.status === 200) {
-				const expiryDate = new Date()
-				expiryDate.setHours(expiryDate.getHours() + selectedExpiry.hours)
-				const completeRsp = await axios.post('api/upload/complete', {
-					key,
-					originalName: name,
-					fileSize: size,
-					mimeType: type,
-					expiresAt: expiryDate.toISOString()
-				}) 
-				if (completeRsp.status === 200) {
-					localStorage.setItem('fileSize', size.toString())
-					localStorage.setItem('fileName', name)
-					localStorage.setItem('expiry', selectedExpiry.label)
-					router.push(`/upload/files/${completeRsp.data.nanoId}`)
-				}
-			}
-
-		} catch (error) {
-			console.error('Upload error:', error)
-			let errorMessage = 'Upload failed. Please try again.'
-			if (axios.isAxiosError(error)) {
-				errorMessage = error.response?.data?.error || error.message
-			}
-			toast.error(errorMessage)
-		} finally {
-			setIsUploading(false)
-		}
+	const formatFileSize = (size: number) => {
+		if (size === 0) return '0 Bytes'
+		const k = 1024
+		const sizes = ['Bytes', 'KB', 'MB', 'GB']
+		const i = Math.floor(Math.log(size) / Math.log(k))
+		return (
+			Number.parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+		)
 	}
 
 	return (
@@ -195,7 +142,7 @@ const UploadCard = () => {
 									variant='secondary'
 									className='bg-gray-700/50 text-gray-300 border-0'
 								>
-									Max 100MB
+									Max 50MB
 								</Badge>
 							</div>
 						)}
@@ -278,6 +225,6 @@ const UploadCard = () => {
 			</Card>
 		</div>
 	)
-
 }
+
 export default UploadCard

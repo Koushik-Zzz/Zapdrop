@@ -1,81 +1,30 @@
-import { authOptions } from "@/lib/authOptions";
-import { GetSignedUrl } from "@/lib/r2/GetSignedUrl";
-import { fileSchema, hoursToSeconds } from "@/lib/zod";
-import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     try {
-        const data = await request.json();
-        
-        
-        const parseData = fileSchema.safeParse(data);
+        const {file, expiry} = await request.json();
 
-        const errorMessage = parseData.error?.errors.map((e)=> e.message).join(', ');
-        
-
-        if (!parseData.success) {
-            console.error('Validation error:', parseData.error);
+        if (!file || !expiry) {
             return NextResponse.json(
-                {
-                    success: false,
-                    error: errorMessage || "Invalid data format",
-                },
+                { error: 'File and expiry are required' },
                 { status: 400 }
             )
         }
-        const { file, expiry } = parseData.data;
-
-        if (file.size > 100 * 1024 * 1024) {
-            console.error("File size exceeds limit");
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: "You can upload files up to 100MB"
-                },
-                { status: 413 }
-            )
-        }
+        console.log('File received:', file);
+        console.log('Expiry setting:', expiry);
         
-        // Convert hours to seconds securely
-        const expirySeconds = hoursToSeconds(expiry.hours);
-        
-        const session = await getServerSession(authOptions)
-
-        if (!session || !session.user) {
-            console.error("No session found")
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: "Unauthorized",
-                },
-                { status: 401 }
-            )
+        // Log detailed file information
+        if (file) {
+            console.log('File details:');
+            console.log('- Name:', file.name);
+            console.log('- Size:', file.size);
+            console.log('- Type:', file.type);
         }
-
-        const key = session.user.id + crypto.randomUUID()
-        
-        const signedUrl = await GetSignedUrl({
-            key: key,
-            expiresIn: expirySeconds,
-            contentType: file.type,
-        })
-
-        if (!signedUrl) {
-            console.error("Failed to generate signed URL");
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: "Failed to generate signed URL",
-                }
-            )
-        }
-
         
         return NextResponse.json({ 
             success: true, 
-            signedUrl: signedUrl,
-            key: key
+            message: 'File details received',
+            fileInfo: file
         });
 
     } catch (error) {

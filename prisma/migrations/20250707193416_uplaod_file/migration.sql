@@ -48,7 +48,7 @@ CREATE TABLE "files" (
     "mimeType" TEXT NOT NULL,
     "storagePath" TEXT NOT NULL,
     "downloadCount" INTEGER NOT NULL DEFAULT 0,
-    "key" TEXT NOT NULL,
+    "shareId" TEXT NOT NULL,
     "expiresAt" TIMESTAMP(3) NOT NULL,
     "isExpired" BOOLEAN NOT NULL DEFAULT false,
     "maxDownloads" INTEGER,
@@ -69,7 +69,7 @@ CREATE UNIQUE INDEX "accounts_provider_providerAccountId_key" ON "accounts"("pro
 CREATE UNIQUE INDEX "sessions_sessionToken_key" ON "sessions"("sessionToken");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "files_key_key" ON "files"("key");
+CREATE UNIQUE INDEX "files_shareId_key" ON "files"("shareId");
 
 -- AddForeignKey
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

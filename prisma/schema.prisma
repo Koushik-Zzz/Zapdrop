@@ -25,6 +25,7 @@ model User {
   
   accounts Account[]
   sessions Session[]
+  files    File[]
 
   @@map("users")
 }
@@ -58,4 +59,34 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model File {
+  id              String   @id @default(cuid())
+  
+  // File metadata
+  originalName    String
+  fileName        String   // stored filename (with extension)
+  fileSize        Int      // in bytes
+  mimeType        String
+  
+  // Storage info
+  storagePath     String   // path where file is stored
+  downloadCount   Int      @default(0)
+  
+  // Sharing settings
+  shareId         String   @unique // public share identifier
+  expiresAt       DateTime
+  isExpired       Boolean  @default(false)
+  maxDownloads    Int?     // optional download limit
+  
+  // Metadata
+  uploadedAt      DateTime @default(now())
+  lastAccessedAt  DateTime?
+  
+  // Relations
+  uploadedById    String   // required user ID
+  uploadedBy      User     @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+  
+  @@map("files")
 }

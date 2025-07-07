@@ -11,8 +11,8 @@ const upload = () => {
           <div className="absolute inset-0 bg-noise"></div>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        {/* <UploadCard /> */}
-        <UploadResult />
+        <UploadCard />
+        {/* <UploadResult /> */}
     </div>
   )
 }

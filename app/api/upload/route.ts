@@ -19,7 +19,6 @@ export async function POST(request: Request) {
                 {
                     success: false,
                     error: "Invalid data format",
-                    details: parseData.error.errors
                 },
                 { status: 400 }
             )
@@ -37,23 +36,17 @@ export async function POST(request: Request) {
                 {
                     success: false,
                     error: "Unauthorized",
-                    details: "User session not found"
                 },
                 { status: 401 }
             )
         }
 
-        const user = await prisma.user.findUnique({
-            where: {
-                id: session?.user?.id || ''
-            }
-        })
-        
-        const key = user?.id + crypto.randomUUID()
+        const key = session.user.id + crypto.randomUUID()
         
         const signedUrl = await GetSignedUrl({
             key: key,
-            expiresIn: expirySeconds
+            expiresIn: expirySeconds,
+            contentType: file.type,
         })
         console.log('Signed URL:', signedUrl);
 
@@ -63,29 +56,15 @@ export async function POST(request: Request) {
                 {
                     success: false,
                     error: "Failed to generate signed URL",
-                    details: "Could not create signed URL for file upload"
                 }
             )
         }
 
-        await prisma.file.create({
-            data: {
-                originalName: file.name,
-                fileName: file.name,
-                fileSize: file.size,
-                mimeType: file.type,
-                shareId: key,
-                uploadedById: user?.id || '',
-                expiresAt: new Date(Date.now() + expirySeconds * 1000)
-
-            }
-        })
         
         return NextResponse.json({ 
             success: true, 
-            message: 'Success',
             signedUrl: signedUrl,
-            expirySeconds
+            shareId: key
         });
 
     } catch (error) {

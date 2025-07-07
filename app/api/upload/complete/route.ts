@@ -12,8 +12,8 @@ export async function POST(request: Request) {
         if (!parseData.success) {
             return NextResponse.json( {error: "Invalid data format"}, { status: 400 });
         }
-        
-        const { key, originalName, fileSize, mimeType, expiresAt } = parseData.data;
+
+        const { shareId, originalName, fileSize, mimeType, expiresAt } = parseData.data;
 
         const session = await getServerSession(authOptions)
 
@@ -21,13 +21,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const nanoId = key.split("-")
-
         await prisma.file.create({
             data: {
-                uniqueId: nanoId[4],
                 originalName,
-                key,
+                shareId,
                 fileSize,
                 mimeType,
                 expiresAt: new Date(expiresAt),
@@ -35,7 +32,7 @@ export async function POST(request: Request) {
             }
         })
 
-        return NextResponse.json({ success: true, nanoId: nanoId[4], message: "File record created" });
+        return NextResponse.json({ success: true, message: "File record created" });
     } catch (error) {
         console.error("Error in upload completion:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });

@@ -13,6 +13,14 @@ export const fileSchema = z.object({
     })
 })
 
+export const completeSchema = z.object({
+    shareId: z.string(),
+    originalName: z.string(),
+    fileSize: z.number(),
+    mimeType: z.string(),
+    expiresAt: z.string().datetime()
+})
+
 // Security constants
 export const ALLOWED_HOURS = [2, 5, 24] as const;
 

@@ -75,13 +75,14 @@ const UploadCard = () => {
 			
 			console.log('Upload response:', response.data)
 
-			// Simulate upload progress
-			for (let i = 0; i<= 100; i++) {
-				setUploadProgress(i)
-				await new Promise(resolve => setTimeout(resolve, 100))
-			}
-		
-	} catch (error) {
+			const uploadResponse = await axios.put(response.data.signedUrl, selectedFile, {
+				headers: {
+					'Content-Type': selectedFile.type,
+				}
+			})
+			console.log('File uploaded successfully:', uploadResponse.data)
+
+		} catch (error) {
 			console.error('Upload error:', error)
 			setError('Upload failed. Please try again.')
 		} finally {

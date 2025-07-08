@@ -68,7 +68,6 @@ model File {
   
   // File metadata
   originalName    String
-  fileName        String   // stored filename (with extension)
   fileSize        Int      // in bytes
   mimeType        String
  
@@ -76,7 +75,6 @@ model File {
   shareId         String   @unique // public share identifier
   expiresAt       DateTime
   isExpired       Boolean  @default(false)
-  maxDownloads    Int?     // download limit maybe future use
   
   // Metadata
   uploadedAt      DateTime @default(now())

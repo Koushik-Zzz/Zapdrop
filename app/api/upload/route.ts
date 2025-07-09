@@ -75,7 +75,7 @@ export async function POST(request: Request) {
         return NextResponse.json({ 
             success: true, 
             signedUrl: signedUrl,
-            shareId: key
+            key: key
         });
 
     } catch (error) {

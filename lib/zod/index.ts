@@ -14,7 +14,7 @@ export const fileSchema = z.object({
 })
 
 export const completeSchema = z.object({
-    shareId: z.string(),
+    key: z.string(),
     originalName: z.string(),
     fileSize: z.number(),
     mimeType: z.string(),

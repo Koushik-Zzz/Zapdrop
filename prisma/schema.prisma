@@ -73,7 +73,7 @@ model File {
  
   // Sharing settings
   uniqueId        String   @unique // unique identifier for the file
-  shareId         String   @unique // public share identifier
+  key             String   @unique // public share identifier
   expiresAt       DateTime
   isExpired       Boolean  @default(false)
   

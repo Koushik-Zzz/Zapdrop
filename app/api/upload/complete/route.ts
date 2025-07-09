@@ -21,8 +21,12 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
+        const nanoId = shareId.split("-")
+        console.log("Share ID parts:", nanoId, "nanoid 5th element:", [nanoId[4]]);
+
         await prisma.file.create({
             data: {
+                uniqueId: nanoId[4],
                 originalName,
                 shareId,
                 fileSize,
@@ -32,7 +36,7 @@ export async function POST(request: Request) {
             }
         })
 
-        return NextResponse.json({ success: true, message: "File record created" });
+        return NextResponse.json({ success: true, nanoId: nanoId[4], message: "File record created" });
     } catch (error) {
         console.error("Error in upload completion:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });

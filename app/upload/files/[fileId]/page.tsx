@@ -1,13 +1,5 @@
-"use client"
-import { ProtectedRoute } from '@/components/ProtectedRoute'
-import { Loader2 } from 'lucide-react'
-import dynamic from 'next/dynamic'
+import UploadResult from '@/components/UploadResult'
 import React from 'react'
-
-const UploadResult = dynamic(() => import('@/components/UploadResult'), {
-  loading: () => <div className='flex h-screen w-full items-center justify-center'><Loader2 className='h-8 w-8 animate-spin text-pink-400' /></div>,
-  ssr: false,
-})
 
 const result = () => {
   return (
@@ -18,9 +10,7 @@ const result = () => {
           <div className="absolute inset-0 bg-noise"></div>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        <ProtectedRoute>
-          <UploadResult />
-        </ProtectedRoute>
+        <UploadResult />
     </div>
   )
 }

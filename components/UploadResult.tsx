@@ -1,25 +1,70 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Check, Clock, Copy, Download, File, QrCode, Share2, UploadCloud } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { cn } from '@/lib/utils'
+import { cn, formatFileSize } from '@/lib/utils'
+import { useParams } from 'next/navigation'
+import { fileData } from '@/types'
+import axios from 'axios'
+import { QRCodeSVG } from 'qrcode.react'
 
 const UploadResult = () => {
     const [copied, setCopied] = useState(false)
+    const [fileData, setFileData] = useState<fileData>({
+        fileName: "",
+        fileSize: 0,
+        expiry: "",
+    })
+    const params = useParams()
 
-    const copyToClipboard = () => {
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-        console.log("TODO: copy link to clipboard")
+    const id = params.fileId
+
+    const shareUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/files/${id}`
+
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(shareUrl)
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)    
+
+        } catch (error) {
+            console.error("Failed to copy to clipboard:", error)
+        }
     }
 
-    const formatFileSize = (size: number) => {
-        console.log("TODO: format file size")
-        return "2.5 MB" // temporary
+    useEffect(() => {
+        setFileData({
+            fileName: localStorage.getItem('fileName') || "",
+            fileSize: Number(localStorage.getItem('fileSize')) || 0,
+            expiry: localStorage.getItem('expiry') || "",
+        })
+    }, [])
+
+    const handleDownload = async () => {
+        try {
+            const response = await axios.get(`/api/download/${id}`)
+
+            const { url } = response.data
+
+            const link = document.createElement('a')
+            link.href = url
+
+            link.setAttribute('download', fileData.fileName || 'download')
+
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+
+        } catch (error) {
+            console.error("Download failed:", error)
+        }
+        
+
     }
+
 
   return (
     <div className='w-full min-h-screen flex flex-col items-center justify-center p-6'>
@@ -48,7 +93,7 @@ const UploadResult = () => {
                             <div className='space-y-2'>
                                 <p className='text-xs text-gray-400 uppercase tracking-wide font-medium'>File Name</p>
                                 <div className='bg-gray-800/50 rounded-lg p-3 border border-gray-700'>
-                                    <p className='text-white break-all'>sample-document.pdf</p>
+                                    <p className='text-white break-all'>{fileData.fileName}</p>
                                 </div>
                             </div>
 
@@ -57,7 +102,7 @@ const UploadResult = () => {
                                 <div className='space-y-2'>
                                     <p className='text-xs text-gray-400 uppercase tracking-wide font-medium'>Size</p>
                                     <div className='bg-gray-800/50 rounded-lg p-3 border border-gray-700'>
-                                        <p className='text-white'>2.5 MB</p>
+                                        <p className='text-white'>{formatFileSize(fileData.fileSize)}</p>
                                     </div>
                                 </div> 
                                 <div className='space-y-2'>
@@ -66,7 +111,7 @@ const UploadResult = () => {
                                         <div className='flex items-center gap-2'>
                                             <Clock className='w-4 h-4 text-pink-400' />
                                             <Badge className="bg-pink-500/10 text-pink-400 border-pink-500/30 text-xs">
-                                                2 Hours
+                                                {fileData.expiry}
                                             </Badge>
                                         </div>
                                     </div>
@@ -78,7 +123,7 @@ const UploadResult = () => {
                                 <p className='text-xs text-gray-400 uppercase tracking-wide font-medium'>Share Link</p>
                                 <div className='flex gap-2'>
                                     <Input 
-                                        value="https://zapdrop.com/files/abc123def456"
+                                        value={shareUrl}
                                         readOnly
                                         className='font-mono text-sm bg-gray-800/50 border-gray-700 text-gray-300 focus:border-pink-500'
                                     />
@@ -112,7 +157,7 @@ const UploadResult = () => {
                                     Share
                                 </Button>
                                 <Button
-                                    onClick={() => console.log("TODO: download file")}
+                                    onClick={handleDownload}
                                     variant="outline"
                                     className='flex-1 border-2 border-gray-700 bg-transparent text-gray-300 hover:border-gray-600 hover:bg-gray-800/50 h-10'
                                 >
@@ -132,10 +177,7 @@ const UploadResult = () => {
                         </CardHeader>
                         <CardContent className='flex flex-col items-center space-y-3'>
                             <div className='bg-white rounded-lg p-4 w-40 h-40 flex items-center justify-center'>
-                                <div className='text-center'>
-                                    <QrCode className='w-12 h-12 text-gray-400 mx-auto mb-2' />
-                                    <p className='text-xs text-gray-600'>QR Code</p>
-                                </div>
+                                <QRCodeSVG value={shareUrl} bgColor={"#ffffff"} />
                             </div>
                             <p className='text-xs text-gray-400 text-center'>
                                 Scan to access file on mobile

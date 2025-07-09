@@ -1,6 +1,6 @@
 "use client"
-import axios, { isAxiosError } from 'axios';
-import { Loader2, CheckCircle } from 'lucide-react';
+import axios from 'axios';
+import { Loader2 } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
 
@@ -10,7 +10,6 @@ const FileDownloadPage = () => {
     
     const [status, setStatus] = useState<string>('Preparing your download...')
     const [error, setError] = useState<string | null>(null);
-    const [downloadStarted, setDownloadStarted] = useState<boolean>(false);
 
     useEffect(() => {
         if (!fileId) return
@@ -32,19 +31,12 @@ const FileDownloadPage = () => {
                 link.click();
                 document.body.removeChild(link);
 
-                setDownloadStarted(true);
-
                 setTimeout(() => {
                     setStatus("Download started successfully. You can close this page.");
                 }, 2000)
-            } catch (error) {
+            } catch (error: any) {
                 console.error("Download failed:", error);
-                let errorMessage ="An unknown error occurred";
-                if (isAxiosError(error)) {
-                    errorMessage = error.response?.data?.error || "An unknown error occurred.";
-                } else if (error instanceof Error){
-                    errorMessage = error.message
-                }
+                const errorMessage = error.response?.data?.error || "An unknown error occurred.";
                 setError(`Failed to start download: ${errorMessage}`)
                 setStatus("Download failed")
             }
@@ -53,37 +45,21 @@ const FileDownloadPage = () => {
         startDownload();
         
     }, [fileId]);
-
-    const renderStatusIcon = () => {
-        if (error) {
-            return <div className="text-red-400 text-4xl">⚠️</div>
-        }
-        
-        if (downloadStarted) {
-            return <CheckCircle className="h-8 w-8 text-pink-400" />
-        }
-        
-        return <Loader2 className="h-8 w-8 animate-spin text-pink-400" />
-    }
-
     return (
         <div className='w-full min-h-screen relative'>
-     
+            {/* Background with same styling as other pages */}
             <div className="fixed inset-0 -z-50 dark:bg-sidebar">
                 <div className="absolute inset-0 opacity-40" style={{ backgroundImage: "radial-gradient(closest-corner at 120px 36px, rgba(255, 1, 111, 0.19), rgba(255, 1, 111, 0.08)), linear-gradient(rgb(63, 51, 69) 15%, rgb(7, 3, 9))" }}></div>
                 <div className="absolute inset-0 bg-noise"></div>
                 <div className="absolute inset-0 bg-black/40"></div>
             </div>
 
-
+            {/* Content */}
             <div className="w-full min-h-screen flex items-center justify-center p-6">
                 <div className="text-center p-8 bg-black/40 border border-gray-700/50 backdrop-blur-sm rounded-lg max-w-md w-full">
                     <h1 className="text-2xl font-light text-white mb-4">ZapDrop</h1>
                     {error ? (
                         <div className="space-y-4">
-                            <div className="flex justify-center mb-4">
-                                {renderStatusIcon()}
-                            </div>
                             <p className="text-red-400">{error}</p>
                             <button 
                                 onClick={() => window.history.back()}
@@ -93,10 +69,8 @@ const FileDownloadPage = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center space-y-4">
-                            <div className="flex justify-center">
-                                {renderStatusIcon()}
-                            </div>
+                        <div className="flex flex-col items-center justify-center space-x-3">
+                            <Loader2 className="h-5 w-5 animate-spin text-pink-400" />
                             <p className="text-lg text-gray-300">{status}</p>
                         </div>
                     )}
@@ -106,4 +80,4 @@ const FileDownloadPage = () => {
     );
 }
 
-export default FileDownloadPage;
+export default FileDownloadPage

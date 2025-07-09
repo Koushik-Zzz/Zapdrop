@@ -1,5 +1,4 @@
 import UploadCard from '@/components/UploadCard'
-import UploadResult from '@/components/UploadResult'
 import React from 'react'
 
 const upload = () => {
@@ -12,7 +11,6 @@ const upload = () => {
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
         <UploadCard />
-        {/* <UploadResult /> */}
     </div>
   )
 }

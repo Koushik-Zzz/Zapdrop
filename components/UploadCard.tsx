@@ -1,14 +1,14 @@
 "use client"
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Card, CardContent } from './ui/card'
 import { AlertCircle, Clock, File, Loader2, Upload, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, formatFileSize } from '@/lib/utils'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { Progress } from './ui/progress'
 import AnimatedButton from './AnimatedButton'
 import axios from 'axios'
-import { resolve } from 'path'
+import {  useRouter } from 'next/navigation'
 
 const EXPIRY_OPTIONS = [
 	{ label: '2 Hours', value: '2h', hours: 2 },
@@ -23,6 +23,7 @@ const UploadCard = () => {
 	const [isUploading, setIsUploading] = useState(false)
 	const [selectedExpiry, setSelectedExpiry] = useState(EXPIRY_OPTIONS[0])
 	const [uploadProgress, setUploadProgress] = useState(0)
+	const router = useRouter()
 
 	const handleDragOver = useCallback((e: React.DragEvent) => {
 		e.preventDefault()
@@ -82,18 +83,28 @@ const UploadCard = () => {
 			const uploadResponse = await axios.put(signedUrl, selectedFile, {
 				headers: {
 					'Content-Type': selectedFile.type,
+				},
+				onUploadProgress: (progressEvent) => {
+					const progress = Math.round(progressEvent.loaded * 100 / (progressEvent.total || 1))
+					setUploadProgress(progress)
 				}
 			})
 			if (uploadResponse.status === 200) {
 				const expiryDate = new Date()
 				expiryDate.setHours(expiryDate.getHours() + selectedExpiry.hours)
-				await axios.post('api/upload/complete', {
+				const completeRsp = await axios.post('api/upload/complete', {
 					shareId,
 					originalName: name,
 					fileSize: size,
 					mimeType: type,
 					expiresAt: expiryDate.toISOString()
 				}) 
+				if (completeRsp.status === 200) {
+					localStorage.setItem('fileSize', size.toString())
+					localStorage.setItem('fileName', name)
+					localStorage.setItem('expiry', selectedExpiry.label)
+					router.push(`/upload/files/${completeRsp.data.nanoId}`)
+				}
 			}
 
 		} catch (error) {
@@ -102,16 +113,6 @@ const UploadCard = () => {
 		} finally {
 			setIsUploading(false)
 		}
-	}
-
-	const formatFileSize = (size: number) => {
-		if (size === 0) return '0 Bytes'
-		const k = 1024
-		const sizes = ['Bytes', 'KB', 'MB', 'GB']
-		const i = Math.floor(Math.log(size) / Math.log(k))
-		return (
-			Number.parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-		)
 	}
 
 	return (

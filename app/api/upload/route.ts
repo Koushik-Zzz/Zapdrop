@@ -24,6 +24,17 @@ export async function POST(request: Request) {
             )
         }
         const { file, expiry } = parseData.data;
+
+        if (file.size > 100 * 1024 * 1024) {
+            console.error("File size exceeds limit");
+            return NextResponse.json(
+                {
+                    success: false,
+                    error: "You can upload files up to 100MB"
+                },
+                { status: 413 }
+            )
+        }
         
         // Convert hours to seconds securely
         const expirySeconds = hoursToSeconds(expiry.hours);

@@ -26,10 +26,10 @@ export const ALLOWED_HOURS = [2, 5, 24] as const;
 
 // Convert hours to seconds with validation
 export function hoursToSeconds(hours: number): number {
-    if (!ALLOWED_HOURS.includes(hours as any)) {
+    if (!(ALLOWED_HOURS as readonly number[]).includes(hours)) {
         console.warn(`Invalid hours: ${hours}. Defaulting to 2 hours.`);
-        return 7200; // 2 hours default
+        return 7200;
     }
     
-    return hours * 3600; // Convert hours to seconds
+    return hours * 3600; 
 }

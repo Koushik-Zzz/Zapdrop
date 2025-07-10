@@ -1,5 +1,5 @@
 "use client"
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
@@ -34,9 +34,14 @@ const FileDownloadPage = () => {
                 setTimeout(() => {
                     setStatus("Download started successfully. You can close this page.");
                 }, 2000)
-            } catch (error: any) {
+            } catch (error) {
                 console.error("Download failed:", error);
-                const errorMessage = error.response?.data?.error || "An unknown error occurred.";
+                let errorMessage ="An unknown error occurred";
+                if (isAxiosError(error)) {
+                    errorMessage = error.response?.data?.error || "An unknown error occurred.";
+                } else if (error instanceof Error){
+                    errorMessage = error.message
+                }
                 setError(`Failed to start download: ${errorMessage}`)
                 setStatus("Download failed")
             }

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
-import { Check, Clock, Copy, Download, File, QrCode, Share2, UploadCloud } from 'lucide-react'
+import { Check, Clock, Copy, Download, File, Share2, UploadCloud } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Input } from './ui/input'
 import { Button } from './ui/button'

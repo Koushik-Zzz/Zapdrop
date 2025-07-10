@@ -1,5 +1,4 @@
 import { authOptions } from "@/lib/authOptions";
-import prisma from "@/lib/prisma";
 import { GetSignedUrl } from "@/lib/r2/GetSignedUrl";
 import { fileSchema, hoursToSeconds } from "@/lib/zod";
 import { getServerSession } from "next-auth/next";

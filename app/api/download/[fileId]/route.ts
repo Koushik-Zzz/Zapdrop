@@ -3,8 +3,8 @@ import { GetSignedUrlForFile } from "@/lib/r2/GetSignedUrl";
 import { DownloadParam } from "@/types";
 import { NextResponse } from "next/server";
 
-export async function GET (request: Request, context: DownloadParam) {
-  const { fileId } = await context.params;
+export async function GET (request: Request, context: { params: { fileId: string } }) {
+  const { fileId } = context.params;
 
   try {
     const file = await prisma.file.findUnique({
@@ -26,7 +26,7 @@ export async function GET (request: Request, context: DownloadParam) {
     }
 
     const SignedUrl = await GetSignedUrlForFile({
-      key: file.shareId,
+      key: file.key,
       FileName: file.originalName,
       expiresIn: 300
     })

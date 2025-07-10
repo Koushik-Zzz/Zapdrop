@@ -35,7 +35,7 @@ export async function GET(request: Request) {
         const DeletePromises = expiredFiles.map(async (file) => {
             const deleteCommand = new DeleteObjectCommand({
                 Bucket: process.env.R2_BUCKET_NAME,
-                Key: file.shareId
+                Key: file.key
             })
             await client.send(deleteCommand)
 
@@ -45,7 +45,7 @@ export async function GET(request: Request) {
                 }
             });
 
-            return file.shareId
+            return file.key
         })
 
         const deletedKeys = await Promise.all(DeletePromises)

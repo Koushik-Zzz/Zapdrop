@@ -13,7 +13,7 @@ export async function POST(request: Request) {
             return NextResponse.json( {error: "Invalid data format"}, { status: 400 });
         }
 
-        const { shareId, originalName, fileSize, mimeType, expiresAt } = parseData.data;
+        const { key, originalName, fileSize, mimeType, expiresAt } = parseData.data;
 
         const session = await getServerSession(authOptions)
 
@@ -21,14 +21,14 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const nanoId = shareId.split("-")
+        const nanoId = key.split("-")
         console.log("Share ID parts:", nanoId, "nanoid 5th element:", [nanoId[4]]);
 
         await prisma.file.create({
             data: {
                 uniqueId: nanoId[4],
                 originalName,
-                shareId,
+                key,
                 fileSize,
                 mimeType,
                 expiresAt: new Date(expiresAt),

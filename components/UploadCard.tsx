@@ -78,7 +78,7 @@ const UploadCard = () => {
 			})
 			
 			console.log('Upload response:', response.data)
-			const { signedUrl, shareId } = response.data;
+			const { signedUrl, key } = response.data;
 
 			const uploadResponse = await axios.put(signedUrl, selectedFile, {
 				headers: {
@@ -93,7 +93,7 @@ const UploadCard = () => {
 				const expiryDate = new Date()
 				expiryDate.setHours(expiryDate.getHours() + selectedExpiry.hours)
 				const completeRsp = await axios.post('api/upload/complete', {
-					shareId,
+					key,
 					originalName: name,
 					fileSize: size,
 					mimeType: type,

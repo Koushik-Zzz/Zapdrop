@@ -1,9 +1,11 @@
 import prisma from "@/lib/prisma";
 import { GetSignedUrlForFile } from "@/lib/r2/GetSignedUrl";
-import { DownloadParam } from "@/types";
 import { NextResponse } from "next/server";
 
-export async function GET (request: Request, context: { params: { fileId: string } }) {
+export async function GET (
+  request: Request, 
+  context: { params: { fileId: string } }
+) {
   const { fileId } = context.params;
 
   try {

@@ -1,3 +1,4 @@
+import { ProtectedRoute } from '@/components/ProtectedRoute'
 import UploadResult from '@/components/UploadResult'
 import React from 'react'
 
@@ -10,7 +11,9 @@ const result = () => {
           <div className="absolute inset-0 bg-noise"></div>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        <UploadResult />
+        <ProtectedRoute>
+          <UploadResult />
+        </ProtectedRoute>
     </div>
   )
 }

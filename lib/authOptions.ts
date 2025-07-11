@@ -24,26 +24,16 @@ export const authOptions: AuthOptions = {
         })
     ],
     callbacks: {
-        session: async ({ session, token }) => {
+        session: async ({ session, user }) => {
             if (session?.user) {
-                session.user.id = token.sub || "";
+                session.user.id = user.id || "";    
             }
             return session;
         },
-        jwt: async ({ user, token }) => {
-            if (user) {
-                token.uid = user.id;
-            }
-            return token;
-        },
+
         redirect: async ({ url, baseUrl }) => {
-            // Redirect to /upload after successful login
-            if (url === baseUrl || url === `${baseUrl}/`) {
-                return `${baseUrl}/upload`;
-            }
-            // Allow callback URLs on the same origin
             if (url.startsWith(baseUrl)) {
-                return url;
+                return url.includes("/auth") ? `${baseUrl}/upload` : url;
             }
             return `${baseUrl}/upload`;
         },

@@ -49,7 +49,7 @@ export const authOptions: AuthOptions = {
         },
     },
     session: {
-        strategy: 'jwt',
+        strategy: 'database',
     },
     pages: {
         signIn: '/auth',

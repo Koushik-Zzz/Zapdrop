@@ -2,6 +2,7 @@ import UploadCard from '@/components/UploadCard'
 import React from 'react'
 
 const upload = () => {
+  
   return (
     <div className='w-full min-h-screen relative'>
 

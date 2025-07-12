@@ -15,7 +15,7 @@ const auth = () => {
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
         <div className="absolute left-4 top-4 text-white">
-            <Button onClick={()=> redirect("/upload")} className="gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-foreground disabled:hover:bg-transparent disabled:hover:text-foreground/50 h-9 px-4 py-2 flex items-center hover:bg-muted/40" variant="ghost"><ArrowLeft className="mr-2"/>Back to Home</Button>
+            <Button onClick={()=> redirect("/")} className="gap-2 justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:text-foreground disabled:hover:bg-transparent disabled:hover:text-foreground/50 h-9 px-4 py-2 flex items-center hover:bg-muted/40" variant="ghost"><ArrowLeft className="mr-2"/>Back to Home</Button>
         </div>
         <h1 className="mb-5 h-5 text-xl font-bold text-white">Welcome to <span className="text-[#E3BAD1]">ZapDrop</span></h1>
         <div className="mb-8 text-center text-muted-foreground">

@@ -12,7 +12,7 @@ export async function POST(request: Request) {
         if (!parseData.success) {
             return NextResponse.json( {error: "Invalid data format"}, { status: 400 });
         }
-
+        
         const { key, originalName, fileSize, mimeType, expiresAt } = parseData.data;
 
         const session = await getServerSession(authOptions)

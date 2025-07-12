@@ -1,3 +1,4 @@
+import { ProtectedRoute } from '@/components/ProtectedRoute'
 import UploadCard from '@/components/UploadCard'
 import React from 'react'
 
@@ -11,7 +12,9 @@ const upload = () => {
           <div className="absolute inset-0 bg-noise"></div>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
-        <UploadCard />
+        <ProtectedRoute>
+          <UploadCard />
+        </ProtectedRoute>
     </div>
   )
 }

@@ -24,22 +24,32 @@ export const authOptions: AuthOptions = {
         })
     ],
     callbacks: {
-        session: async ({ session, user }) => {
+        session: async ({ session, token }) => {
             if (session?.user) {
-                session.user.id = user.id || "";    
+                session.user.id = token.sub || "";
             }
             return session;
         },
-
+        jwt: async ({ user, token }) => {
+            if (user) {
+                token.uid = user.id;
+            }
+            return token;
+        },
         redirect: async ({ url, baseUrl }) => {
+            // Redirect to /upload after successful login
+            if (url === baseUrl || url === `${baseUrl}/`) {
+                return `${baseUrl}/upload`;
+            }
+            // Allow callback URLs on the same origin
             if (url.startsWith(baseUrl)) {
-                return url.includes("/auth") ? `${baseUrl}/upload` : url;
+                return url;
             }
             return `${baseUrl}/upload`;
         },
     },
     session: {
-        strategy: 'database',
+        strategy: 'jwt',
     },
     pages: {
         signIn: '/auth',

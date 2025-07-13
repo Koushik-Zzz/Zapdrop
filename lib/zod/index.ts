@@ -3,7 +3,7 @@ import * as z from "zod";
 export const fileSchema = z.object({
     file: z.object({
         name: z.string(),
-        size: z.number().int().positive(),
+        size: z.number().int().positive("You cant upload file size less than 1 byte"),
         type: z.string()
     }),
     expiry: z.object({

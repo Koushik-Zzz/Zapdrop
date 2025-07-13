@@ -22,7 +22,6 @@ export async function POST(request: Request) {
         }
 
         const nanoId = key.split("-")
-        console.log("Share ID parts:", nanoId, "nanoid 5th element:", [nanoId[4]]);
 
         await prisma.file.create({
             data: {

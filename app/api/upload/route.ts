@@ -8,7 +8,6 @@ export async function POST(request: Request) {
     try {
         const data = await request.json();
         
-        console.log(data);
         
         const parseData = fileSchema.safeParse(data);
 
@@ -61,7 +60,6 @@ export async function POST(request: Request) {
             expiresIn: expirySeconds,
             contentType: file.type,
         })
-        console.log('Signed URL:', signedUrl);
 
         if (!signedUrl) {
             console.error("Failed to generate signed URL");

@@ -7,7 +7,6 @@ export async function GET (
   { params }: { params: Promise<{ fileId: string }> }
 ) {
   const { fileId }  = await params
-  console.log(fileId);
   
 
   try {

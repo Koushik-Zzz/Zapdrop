@@ -51,19 +51,16 @@ const UploadCard = () => {
 
 	const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
-		console.log('File selected:', e.target.value)
-		console.log('File details:', files)
+
 
 		if (files && files.length > 0) {
 			setSelectedFile(files[0])
-			console.log('Selected file set:', files[0])
 		}
 	}
 	const handleUpload = async () => {
 		if (!selectedFile || !selectedExpiry) return
 
 		const { type, size, name } = selectedFile;
-		console.log("checking if the data is correct", type, size, name)
 
 		try {
 			setIsUploading(true)
@@ -78,7 +75,6 @@ const UploadCard = () => {
 				expiry: selectedExpiry
 			})
 			
-			console.log('Upload response:', response.data)
 			const { signedUrl, key } = response.data;
 
 			const uploadResponse = await axios.put(signedUrl, selectedFile, {

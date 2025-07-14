@@ -10,6 +10,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { fileData } from '@/types'
 import axios from 'axios'
 import { QRCodeSVG } from 'qrcode.react'
+import { toast } from 'sonner'
 
 const UploadResult = () => {
     const [copied, setCopied] = useState(false)
@@ -29,7 +30,8 @@ const UploadResult = () => {
         try {
             await navigator.clipboard.writeText(shareUrl)
             setCopied(true)
-            setTimeout(() => setCopied(false), 2000)    
+            toast.success("Link copied to clipboard")
+            setTimeout(() => setCopied(false), 2000)
 
         } catch (error) {
             console.error("Failed to copy to clipboard:", error)
@@ -147,7 +149,7 @@ const UploadResult = () => {
                             {/* Action Buttons */}
                             <div className='flex gap-3 pt-2'>
                                 <Button
-                                    onClick={() => console.log("TODO: share file")}
+                                    onClick={copyToClipboard}
                                     className={cn(
                                         "flex-1 border-2 transition-all duration-200 h-10",
                                         "border-pink-500 bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 hover:border-pink-400",

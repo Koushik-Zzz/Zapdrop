@@ -6,7 +6,7 @@ import { Badge } from './ui/badge'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { cn, formatFileSize } from '@/lib/utils'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { fileData } from '@/types'
 import axios from 'axios'
 import { QRCodeSVG } from 'qrcode.react'
@@ -18,6 +18,7 @@ const UploadResult = () => {
         fileSize: 0,
         expiry: "",
     })
+    const router = useRouter()
     const params = useParams()
 
     const id = params.fileId
@@ -191,7 +192,7 @@ const UploadResult = () => {
             <div className='text-center pt-4'>
                 <p className='text-gray-400 text-sm mb-3'>Need to upload another file?</p>
                 <Button 
-                    onClick={() => console.log("TODO: upload new file")}
+                    onClick={() => router.push('/upload')}
                     variant="outline"
                     className='border-2 border-gray-700 bg-transparent text-gray-300 hover:border-gray-600 hover:bg-gray-800/50 px-6 h-10'
                 >

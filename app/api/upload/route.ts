@@ -11,13 +11,16 @@ export async function POST(request: Request) {
         console.log(data);
         
         const parseData = fileSchema.safeParse(data);
+
+        const errorMessage = parseData.error?.errors.map((e)=> e.message).join(', ');
         
+
         if (!parseData.success) {
             console.error('Validation error:', parseData.error);
             return NextResponse.json(
                 {
                     success: false,
-                    error: "Invalid data format",
+                    error: errorMessage || "Invalid data format",
                 },
                 { status: 400 }
             )

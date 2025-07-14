@@ -9,6 +9,7 @@ import { Progress } from './ui/progress'
 import AnimatedButton from './AnimatedButton'
 import axios from 'axios'
 import {  useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 const EXPIRY_OPTIONS = [
 	{ label: '2 Hours', value: '2h', hours: 2 },
@@ -109,7 +110,11 @@ const UploadCard = () => {
 
 		} catch (error) {
 			console.error('Upload error:', error)
-			setError('Upload failed. Please try again.')
+			let errorMessage = 'Upload failed. Please try again.'
+			if (axios.isAxiosError(error)) {
+				errorMessage = error.response?.data?.error || error.message
+			}
+			toast.error(errorMessage)
 		} finally {
 			setIsUploading(false)
 		}
@@ -194,7 +199,7 @@ const UploadCard = () => {
 									variant='secondary'
 									className='bg-gray-700/50 text-gray-300 border-0'
 								>
-									Max 50MB
+									Max 100MB
 								</Badge>
 							</div>
 						)}

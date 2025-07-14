@@ -4,8 +4,17 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
  
 export default function HomeHero() {
+  const session = useSession();
+  const redirectToUpload = () => {
+    if (session.status === 'authenticated') {
+      redirect('/upload');
+    } else {
+      redirect('/auth');
+    }
+  };
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
       {/* Background gradient */}
@@ -65,7 +74,7 @@ export default function HomeHero() {
             <Button
               size="lg"
               className="group relative overflow-hidden rounded-full bg-primary px-6 text-primary-foreground shadow-lg transition-all duration-300 hover:shadow-primary/30"
-              onClick={() => redirect('/auth')}
+              onClick={redirectToUpload}
             >
               <span className="relative z-10 flex items-center">
                 Get Started

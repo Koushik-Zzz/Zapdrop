@@ -1,6 +1,11 @@
 import { ProtectedRoute } from '@/components/ProtectedRoute'
-import UploadCard from '@/components/UploadCard'
+import { Loader2 } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import React from 'react'
+
+const UploadCard = dynamic(() => import('@/components/UploadCard'), {
+  loading: () => <div className='flex h-screen w-full items-center justify-center'><Loader2 className='h-8 w-8 animate-spin text-pink-400' /></div>,
+})
 
 const upload = () => {
   

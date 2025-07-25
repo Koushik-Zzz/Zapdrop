@@ -4,6 +4,11 @@ import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
+/*
+  * This component displays the result of the file upload process.
+  * It shows a success message and a download link for the uploaded file.
+*/
+
 const UploadResult = dynamic(() => import('@/components/UploadResult'), {
   loading: () => <div className='flex h-screen w-full items-center justify-center'><Loader2 className='h-8 w-8 animate-spin text-pink-400' /></div>,
   ssr: false,

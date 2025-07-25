@@ -4,6 +4,12 @@ import { fileSchema, hoursToSeconds } from "@/lib/zod";
 import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 
+/*
+    * This route handles the file upload request.
+    * It generates a pre-signed URL for uploading files to R2.
+    * The URL is valid for a specified duration based on the user's input.
+*/
+
 export async function POST(request: Request) {
     try {
         const data = await request.json();
@@ -37,7 +43,7 @@ export async function POST(request: Request) {
             )
         }
         
-        // Convert hours to seconds securely
+        // Convert hours to seconds
         const expirySeconds = hoursToSeconds(expiry.hours);
         
         const session = await getServerSession(authOptions)

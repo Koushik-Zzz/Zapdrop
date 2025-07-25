@@ -6,6 +6,8 @@ export async function GET (
   request: Request, 
   { params }: { params: Promise<{ fileId: string }> }
 ) {
+
+  // getting fileId from params to fetch file metadata
   const { fileId }  = await params
   
 
@@ -28,6 +30,7 @@ export async function GET (
       )
     }
 
+    // generate pre Signed url to donwload file from R2 and this url will be valid for 5 mins
     const SignedUrl = await GetSignedUrlForFile({
       key: file.key,
       FileName: file.originalName,

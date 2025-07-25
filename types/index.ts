@@ -1,3 +1,8 @@
+
+/*
+    * This file contains TypeScript interfaces and types used across the application.
+*/
+
 export interface fileData {
     fileName: string;
     fileSize: number;

@@ -4,8 +4,15 @@ import { Loader2, CheckCircle } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
 
+/*
+    * This page handles the file download process.
+    * It fetches the file metadata and starts the download.
+    * Displays status messages and handles errors.
+*/
+
 const FileDownloadPage = () => {
     const params = useParams();
+    // Extracting fileId from params
     const fileId = params.fileId as string;
     
     const [status, setStatus] = useState<string>('Preparing your download...')

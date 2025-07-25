@@ -97,4 +97,3 @@ export default function HomeHero() {
     </div>
   );
 }
- 

@@ -7,6 +7,7 @@ export async function GET(request: Request) {
 
     const AuthHeader = request.headers.get('Authorization');
 
+    // verify the request is from the cron job using secret key from env
     if (!AuthHeader || AuthHeader !== process.env.CRON_SECRET) {
         return NextResponse.json(
             { error: "Unauthorized" },
@@ -15,6 +16,8 @@ export async function GET(request: Request) {
     }
 
     try {
+
+        // Fetch all files that have expired
         const expiredFiles = await prisma.file.findMany({
             where: {
                 expiresAt: {
@@ -32,6 +35,7 @@ export async function GET(request: Request) {
             )
         }
 
+        // Delete each expired file from R2 and remove metadata from PostgreSQL
         const DeletePromises = expiredFiles.map(async (file) => {
             const deleteCommand = new DeleteObjectCommand({
                 Bucket: process.env.R2_BUCKET_NAME,

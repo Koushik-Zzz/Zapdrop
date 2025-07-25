@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'ZapDrop - Share Files Instantly',
     description: 'Share files securely with expiring links',
-    url: 'https://ezprepbuddy.com',
+    url: 'https://zapdrop.slyde.tech',
     siteName: 'ZapDrop',
     type: 'website',
   },

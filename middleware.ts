@@ -2,9 +2,6 @@ import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
 import { NextRequest, NextResponse } from 'next/server'
 
-/*
- * Redis client for rate limiting
-*/
 
 const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
@@ -15,6 +12,8 @@ const rateLimit = new Ratelimit({
     redis: redis,
     limiter: Ratelimit.slidingWindow(10, '10 s')
 })
+
+
 
 export async function  middleware(request: NextRequest) {
     const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1'

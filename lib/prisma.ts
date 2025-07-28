@@ -1,11 +1,5 @@
 import { PrismaClient } from './generated/prisma/client'
 
-/*
-    * This file initializes a Prisma client instance.
-    * It ensures that the Prisma client is a singleton to avoid multiple instances in production.
-    * The client is used to interact with the PostgreSQL database.
-*/
-
 const prismaClientSingleton = () => {
     return new PrismaClient()
 }

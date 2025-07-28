@@ -63,7 +63,6 @@ model Session {
   @@map("sessions")
 }
 
-// Model for files
 model File {
   id              String   @id @default(cuid())
   

@@ -3,12 +3,6 @@ import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-/*
-  * This page is the upload page for users to upload files.
-  * It uses a dynamic import for the UploadCard component to improve performance.
-  * The UploadCard component is loaded only when needed, reducing the initial load time.
- */
-
 const UploadCard = dynamic(() => import('@/components/UploadCard'), {
   loading: () => <div className='flex h-screen w-full items-center justify-center'><Loader2 className='h-8 w-8 animate-spin text-pink-400' /></div>,
 })

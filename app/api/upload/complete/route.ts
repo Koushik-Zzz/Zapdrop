@@ -3,10 +3,6 @@ import prisma from "@/lib/prisma";
 import { completeSchema } from "@/lib/zod";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-/*
-    * This route handles the completion of file upload.
-    * It creates a record in the database with file metadata after the upload is complete.
-*/
 
 export async function POST(request: Request) {
     try {

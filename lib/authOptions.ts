@@ -14,12 +14,6 @@ declare module "next-auth" {
     }
 }
 
-/*
-    * This file contains the NextAuth configuration options.
-    * It sets up authentication providers, session handling, and callbacks.
-    * The Google provider is used for OAuth authentication.
-*/
-
 
 export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prisma),

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { ArrowLeft, FileText, Shield, AlertTriangle, Scale, Users } from 'lucide-react'
+import { ArrowLeft, FileText, Shield, AlertTriangle, Scale, Clock, Users } from 'lucide-react'
 import Link from 'next/link'
 
 export default function TermsPage() {
@@ -41,7 +41,7 @@ export default function TermsPage() {
             <section>
               <p className='text-gray-300 leading-relaxed'>
                 Welcome to ZapDrop! These terms and conditions outline the rules and regulations for the use of 
-                ZapDrop&apos;s Website, located at <span className='text-pink-400'>zapdrop.slyde.tech</span>.
+                ZapDrop's Website, located at <span className='text-pink-400'>zapdrop.slyde.tech</span>.
               </p>
               <p className='text-gray-300 leading-relaxed mt-4'>
                 By accessing this website we assume you accept these terms and conditions. Do not continue to use 
@@ -83,7 +83,7 @@ export default function TermsPage() {
                   All files are automatically deleted from our servers after the expiration period you select (2 hours, 5 hours, or 1 day). 
                   We do not store your files permanently.
                 </p>
-                <div className='p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg'>
+                <div className='flex items-start gap-3 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg'>
                   <AlertTriangle className='w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0' />
                   <div>
                     <p className='text-amber-300 font-medium'>Important:</p>
@@ -116,9 +116,12 @@ export default function TermsPage() {
 
             {/* Service Availability */}
             <section>
-              <h2 className='text-xl font-semibold text-white mb-4'>Service Availability</h2>
+              <div className='flex items-center gap-3 mb-4'>
+                <Clock className='w-5 h-5 text-pink-400' />
+                <h2 className='text-xl font-semibold text-white'>Service Availability</h2>
+              </div>
               <p className='text-gray-300 leading-relaxed'>
-                While we strive to maintain 99.9% uptime, ZapDrop is provided &quot;as is&quot; without guarantees of continuous availability. 
+                While we strive to maintain 99.9% uptime, ZapDrop is provided "as is" without guarantees of continuous availability. 
                 We may perform maintenance, updates, or experience technical difficulties that could temporarily affect service.
               </p>
             </section>

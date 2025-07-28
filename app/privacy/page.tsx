@@ -315,7 +315,7 @@ export default function PrivacyPage() {
                   </a>
                 </p>
                 <p className='text-gray-300 leading-relaxed'>
-                  We may update this Privacy Policy occasionally. We&apos;ll notify users of significant changes via email 
+                  We may update this Privacy Policy occasionally. We'll notify users of significant changes via email 
                   or prominent notice on our website. Continued use after updates constitutes acceptance.
                 </p>
                 <div className='p-4 bg-pink-500/10 border border-pink-500/20 rounded-lg'>

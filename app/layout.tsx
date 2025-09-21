@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from "./provider";
 import { Toaster } from "sonner";
+import { siteConfig } from "@/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,18 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: 'ZapDrop - Share Files Instantly',
-  description: 'The fastest bridge between your files and your recipients. Drag, drop, and share expiring links in seconds.',
-  keywords: ['file sharing', 'secure', 'instant', 'drag drop'],
-  openGraph: {
-    title: 'ZapDrop - Share Files Instantly',
-    description: 'Share files securely with expiring links',
-    url: 'https://ezprepbuddy.com',
-    siteName: 'ZapDrop',
-    type: 'website',
-  },
-}
+export const metadata: Metadata = siteConfig;
 
 export default function RootLayout({
   children,

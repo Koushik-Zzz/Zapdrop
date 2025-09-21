@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Black & white dual-arrow logo">
+  <!-- Black circular background -->
+  <circle cx="128" cy="128" r="120" fill="#000"/>
+  
+  <!-- Right arrow (dark) -->
+  <path d="M171 34c22 0 36 15 36 38v66c0 8-6 14-14 14h-6l-37 41c-6 6-16 6-22 0-0.5-0.5-0.9-1.1-1.2-1.7l-.2-.5v-0.1L141 154v-23c0-6 4-10 10-10h5c6 0 10-4 10-10V86c0-14-7-18-17-18h0z" fill="#0b0b0b"/>
+  
+  <!-- Left arrow (white) -->
+  <path d="M85 34c-22 0-36 15-36 38v66c0 8 6 14 14 14h6l37 41c6 6 16 6 22 0 .5-.5.9-1.1 1.2-1.7l.2-.5v-0.1L115 154v-23c0-6-4-10-10-10h-5c-6 0-10-4-10-10V86c0-14 7-18 17-18h0z" fill="#fff"/>
+  
+  <!-- Divider between arrows -->
+  <path d="M128 48c6 0 10 6 10 10v140c0 6-6 10-10 10s-10-4-10-10V58c0-4 4-10 10-10z" fill="#111" opacity="0.9"/>
+  
+  <!-- Small motion lines (left) -->
+  <g fill="#1a1a1a" opacity="0.85">
+    <rect x="36" y="86" rx="6" ry="6" width="26" height="12"/>
+    <rect x="52" y="106" rx="6" ry="6" width="18" height="12"/>
+    <rect x="36" y="66" rx="6" ry="6" width="20" height="10"/>
+  </g>
+  
+  <!-- Subtle highlight on white arrow (thin) -->
+  <path d="M85 44c-10 0-17 4-17 18v10h12c6 0 10 4 10 10v23l24 45v-72c0-17-14-38-29-38z" fill="#ffffff" opacity="0.08"/>
+  
+  <!-- Center bottom rounded join highlight -->
+  <ellipse cx="128" cy="210" rx="8" ry="6" fill="#fff" opacity="0.06"/>
+</svg>

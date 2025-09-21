@@ -1,9 +1,10 @@
 import { authOptions } from "@/lib/authOptions";
 import prisma from "@/lib/prisma";
+import { redis } from "@/lib/redis";
 import { completeSchema } from "@/lib/zod";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-
+import ShortUniqueId from "short-unique-id"
 export async function POST(request: Request) {
     try {
         const data = await request.json();
@@ -20,12 +21,12 @@ export async function POST(request: Request) {
         if (!session || !session.user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
+        const uid = new ShortUniqueId({ length: 6 })
+        const nanoId = uid.rnd();
 
-        const nanoId = key.split("-")
-
-        await prisma.file.create({
+        const fileRecord = await prisma.file.create({
             data: {
-                uniqueId: nanoId[4],
+                uniqueId: nanoId,
                 originalName,
                 key,
                 fileSize,
@@ -35,7 +36,16 @@ export async function POST(request: Request) {
             }
         })
 
-        return NextResponse.json({ success: true, nanoId: nanoId[4], message: "File record created" });
+        const cacheKey = `file:${fileRecord.uniqueId}`;
+        const expiryInSeconds = Math.floor((new Date(expiresAt).getTime() - Date.now()) / 1000);
+
+        if (expiryInSeconds > 0) {
+            await redis.set(cacheKey, JSON.stringify(fileRecord), {
+                ex: expiryInSeconds
+            })
+        }
+
+        return NextResponse.json({ success: true, nanoId: nanoId, message: "File record created" });
     } catch (error) {
         console.error("Error in upload completion:", error);
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });

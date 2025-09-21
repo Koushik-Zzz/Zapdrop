@@ -21,3 +21,17 @@ export interface GetSignedUrlForGetFile {
     FileName: string;
     expiresIn?: number;
 }
+
+export interface File {
+  id: string;
+  originalName: string;
+  fileSize: number;
+  mimeType: string;
+  uniqueId: string;
+  key: string;
+  expiresAt: string | Date;
+  isExpired: boolean;
+  uploadedAt: string | Date;
+  lastAccessedAt: string | Date | null;
+  uploadedById: string;
+}

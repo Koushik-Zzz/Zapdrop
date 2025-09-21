@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { client } from "@/lib/r2/R2Client";
+import { redis } from "@/lib/redis";
 import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
 
@@ -30,6 +31,11 @@ export async function GET(request: Request) {
                     message: "No expired files found to delete"
                 }
             )
+        }
+
+        const redisKeysToDelete = expiredFiles.map(file => `file:${file.uniqueId}`);
+        if (redisKeysToDelete.length > 0) {
+            await redis.del(...redisKeysToDelete);
         }
 
         const DeletePromises = expiredFiles.map(async (file) => {

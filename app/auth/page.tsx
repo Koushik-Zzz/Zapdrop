@@ -3,7 +3,7 @@
 import AnimatedButton from "@/components/AnimatedButton"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { signIn } from "@/node_modules/next-auth/react"
 import { redirect } from "next/navigation"
 
 const auth = () => {

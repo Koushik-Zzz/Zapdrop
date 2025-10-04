@@ -1,6 +1,6 @@
 "use client"
 import { Loader2 } from "lucide-react"
-import { useSession } from "next-auth/react"
+import { useSession } from "@/node_modules/next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 type ProtectedRouteProps = {

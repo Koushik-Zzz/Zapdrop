@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/node_modules/next-auth/react';
  
 export default function HomeHero() {
   const session = useSession();

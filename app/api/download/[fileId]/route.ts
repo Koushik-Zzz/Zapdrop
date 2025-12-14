@@ -44,7 +44,13 @@ export async function GET (
       expiresIn: 300
     })
 
-    return NextResponse.json({ url: SignedUrl, originalName: file.originalName })
+    return NextResponse.json({ 
+      url: SignedUrl, 
+      originalName: file.originalName,
+      fileSize: file.fileSize,
+      mimeType: file.mimeType,
+      expiresAt: file.expiresAt,
+    })
   } catch (error) {
     console.error("Failed to get download url", error);
     return NextResponse.json(

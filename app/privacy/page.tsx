@@ -60,15 +60,15 @@ export default function PrivacyPage() {
                   </p>
                   <ul className='mt-2 space-y-1 text-gray-300 pl-6'>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       Your Google account email address
                     </li>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       Your name and profile picture (if public)
                     </li>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       Unique user identifier for our system
                     </li>
                   </ul>
@@ -81,19 +81,19 @@ export default function PrivacyPage() {
                   </p>
                   <ul className='mt-2 space-y-1 text-gray-300 pl-6'>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       Original filename and file size
                     </li>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       MIME type and upload timestamp
                     </li>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       Expiration date and share link identifier
                     </li>
                     <li className='flex items-start gap-2'>
-                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                      <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                       Download access logs (timestamp only)
                     </li>
                   </ul>
@@ -124,23 +124,23 @@ export default function PrivacyPage() {
                 </div>
                 <ul className='space-y-2 text-gray-300'>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     Authenticate and authorize your access to the service
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     Generate secure share links for your files
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     Automatically delete expired files to protect your privacy
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     Monitor for abuse and maintain service security
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     Improve our service performance and user experience
                   </li>
                 </ul>
@@ -220,15 +220,15 @@ export default function PrivacyPage() {
                 </p>
                 <ul className='space-y-2 text-gray-300'>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     <strong>Service Providers:</strong> Cloudflare (file storage), Vercel (hosting), and Upstash (caching) - all under strict data processing agreements
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     <strong>Legal Requirements:</strong> When required by law, court order, or to protect our rights and safety
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     <strong>Business Transfer:</strong> In the event of a merger or acquisition (with advance notice)
                   </li>
                 </ul>
@@ -286,15 +286,15 @@ export default function PrivacyPage() {
                 </p>
                 <ul className='space-y-2 text-gray-300'>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     <strong>Authentication Cookies:</strong> To keep you signed in securely
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     <strong>Session Cookies:</strong> To maintain your session state
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     <strong>Performance Analytics:</strong> Anonymous usage statistics via Vercel Analytics
                   </li>
                 </ul>

@@ -84,7 +84,7 @@ export default function TermsPage() {
                   We do not store your files permanently.
                 </p>
                 <div className='p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg'>
-                  <AlertTriangle className='w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0' />
+                  <AlertTriangle className='w-5 h-5 text-amber-400 mt-0.5 shrink-0' />
                   <div>
                     <p className='text-amber-300 font-medium'>Important:</p>
                     <p className='text-amber-200 text-sm'>
@@ -136,19 +136,19 @@ export default function TermsPage() {
                 </p>
                 <ul className='space-y-2 text-gray-300 pl-6'>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     limit or exclude our or your liability for death or personal injury;
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     limit or exclude our or your liability for fraud or fraudulent misrepresentation;
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     limit any of our or your liabilities in any way that is not permitted under applicable law; or
                   </li>
                   <li className='flex items-start gap-2'>
-                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 flex-shrink-0'></span>
+                    <span className='w-1.5 h-1.5 bg-pink-400 rounded-full mt-2 shrink-0'></span>
                     exclude any of our or your liabilities that may not be excluded under applicable law.
                   </li>
                 </ul>

@@ -5,10 +5,14 @@ import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-
+    // Support both header and query parameter for authentication
     const AuthHeader = request.headers.get('Authorization');
+    const url = new URL(request.url);
+    const secretFromQuery = url.searchParams.get('secret');
 
-    if (!AuthHeader || AuthHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    const providedSecret = AuthHeader?.replace('Bearer ', '') || secretFromQuery;
+
+    if (!providedSecret || providedSecret !== process.env.CRON_SECRET) {
         return NextResponse.json(
             { error: "Unauthorized" },
             { status: 401 }

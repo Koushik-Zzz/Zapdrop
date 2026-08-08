@@ -213,7 +213,7 @@ This project is licensed under the **MIT License** - see [LICENSE](LICENSE) for 
 
 <div align="center">
 
-**[🌐 Live Demo](https://zapdrop.slyde.tech)** • **[📧 Contact](mailto:koushik02269@gmail.com)**
+**[🌐 Live Demo](https://zapdrop.koushikdev.me)** • **[📧 Contact](mailto:koushik02269@gmail.com)**
 
 *Built with ❤️ by [Koushik](https://github.com/Koushik-Zzz)*
 
